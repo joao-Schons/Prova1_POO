@@ -1,0 +1,85 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+//Aluno: João Guilherme Schons Silva
+//Matricula: 12311ETE008
+//Curso: Eng. Eletrônica e de Telecomunicãções
+
+namespace P1_Questão2
+{
+    public class NumComplexo
+    {
+        private double Re;
+        private double Im;
+        public NumComplexo()
+        {
+            Re = 0;
+            Im = 0;
+        }
+        public NumComplexo(double re, double im)
+        {
+            Re = re;
+            Im = im;
+        }
+        public NumComplexo Soma(NumComplexo outro)
+        {
+            return new NumComplexo(Re + outro.Re, Im + outro.Im);
+        }
+        public NumComplexo Vezes(NumComplexo outro)
+        {
+            double re = Re * outro.Re - Im * outro.Im;
+            double im = Re * outro.Im + Im * outro.Re;
+            return new NumComplexo(re, im);
+        }
+        public double Modulo()
+        {
+            return Math.Sqrt(Re * Re + Im * Im);
+        }
+        public double Argumento()
+        {
+            return Math.Atan2(Im, Re);
+        }
+        public void ImprimeFormaPolar()
+        {
+            double p = Modulo();
+            double theta = Argumento();
+            Console.WriteLine($"{p} (cos({theta}) + i * sin({theta}))");
+        }
+        public override string ToString()
+        {
+            return $"{Re} + i * {Im}";
+        }
+    }
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            NumComplexo z1 = new NumComplexo(1, 1);
+            NumComplexo z2 = new NumComplexo(3, -1);
+
+            Console.WriteLine("Z1 = 1+i e Z2 = 3-i");
+
+            NumComplexo soma = z1.Soma(z2);
+            Console.WriteLine($"Z1 + Z2 = {soma}");
+
+            NumComplexo produto = z1.Vezes(z2);
+            Console.WriteLine($"Z1 * Z2 = {produto}");
+
+            double moduloZ1 = z1.Modulo();
+            double moduloZ2 = z2.Modulo();
+            Console.WriteLine($"|Z1| = {moduloZ1} |Z2| = {moduloZ2}");
+
+            double argumentoZ1 = z1.Argumento();
+            Console.WriteLine($"O argumento de Z1 é {argumentoZ1}º");
+
+            Console.Write("Forma polar de Z2 = ");
+            z2.ImprimeFormaPolar();
+
+            Console.WriteLine("Pressione qualquer tecla para sair.");
+            Console.ReadKey();
+        }
+    }
+}

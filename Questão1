@@ -1,0 +1,61 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+//Aluno: João Guilherme Schons Silva
+//Matricula: 12311ETE008
+//Curso: Eng. Eletrônica e de Telecomunicãções
+
+namespace P1_Questão1
+{
+    public class NomeProprio
+    {
+        private string nome_completo;
+        private string nome_paper;
+
+        public NomeProprio(string nome_completo)
+        {
+            this.nome_completo = nome_completo;
+            GerarNomePaper();
+        }
+        private void GerarNomePaper()
+        {
+            string[] partes = nome_completo.Split(' ');
+
+            string primeiroNome = partes[0];
+            string sobrenome = partes[partes.Length - 1];
+
+            if (partes.Length == 3)
+            {
+                string nomeDoMeio = partes[1];
+                nome_paper = $"{sobrenome}, {primeiroNome} {nomeDoMeio[0]}.";
+            }
+            else
+            {
+                nome_paper = $"{sobrenome}, {primeiroNome}";
+            }
+        }
+
+        public void ImprimeNomePaper()
+        {
+            Console.WriteLine(nome_paper);
+        }
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Digite o nome completo:");
+            string nomeCompleto = Console.ReadLine();
+
+            NomeProprio nome = new NomeProprio(nomeCompleto);
+            nome.ImprimeNomePaper();
+
+            Console.WriteLine("Pressione qualquer tecla para sair.");
+            Console.ReadKey();
+        }
+    }
+}
